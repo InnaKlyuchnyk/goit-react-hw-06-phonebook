@@ -1,9 +1,18 @@
 import { remove } from '../../redux/contacts/reducer';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import styles from './PhonebookList.module.css';
 
-function PhonebookList({ filtredNames }) {
+function PhonebookList() {
+  const contacts = useSelector(state => state.items);
+  const filter = useSelector(state => state.filter);
   const dispatch = useDispatch();
+
+  const getFiltredNames = () => {
+    const normalizedFilter = filter.toLowerCase();
+    return contacts.filter(contact =>
+      contact.name.toLowerCase().includes(normalizedFilter)
+    );
+  };
 
   const onDelete = event => {
     event.preventDefault();
@@ -13,7 +22,7 @@ function PhonebookList({ filtredNames }) {
 
   return (
     <ul className={styles.list}>
-      {filtredNames.map(contact => (
+      {getFiltredNames().map(contact => (
         <li key={contact.id} className={styles.listItem}>
           {contact.name}: {contact.number}
           <button

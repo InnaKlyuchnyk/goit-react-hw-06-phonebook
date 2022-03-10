@@ -1,5 +1,4 @@
 import styles from './Form.module.css';
-import { nanoid } from 'nanoid';
 import { useDispatch, useSelector } from 'react-redux';
 import { add } from '../../redux/contacts/reducer';
 
@@ -10,21 +9,17 @@ function Form() {
   const handleSubmit = event => {
     event.preventDefault();
     const form = event.currentTarget;
-
-    const newContact = {
-      id: nanoid(),
-      name: form.elements.name.value,
-      number: form.elements.number.value,
-    };
+    const name = form.elements.name.value;
+    const number = form.elements.number.value;
 
     if (
       !contacts.find(
-        contact => contact.name.toLowerCase() === newContact.name.toLowerCase()
+        contact => contact.name.toLowerCase() === name.toLowerCase()
       )
     ) {
-      dispatch(add(newContact));
+      dispatch(add(name, number));
     } else {
-      alert(`${newContact.name} is already in contacts`);
+      alert(`${name} is already in contacts`);
     }
     form.reset();
   };

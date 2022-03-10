@@ -7,16 +7,8 @@ import Filter from './Filter'
 
 export const App = () => {
   const contacts = useSelector(state => state.items)
-  const filter = useSelector(state => state.filter)
   const dispatch = useDispatch()
-
-    const getFiltredNames = () => {
-    const normalizedFilter = filter.toLowerCase();
-    return contacts.filter((contact) =>
-      contact.name.toLowerCase().includes(normalizedFilter)
-    );
-  };
-  
+ 
   return (
     <div>
       <Section title='Phonebook'>
@@ -25,9 +17,10 @@ export const App = () => {
 
       {contacts.length !== 0 &&
         <Section title='Contacts'>
-        <Filter/>
-        <PhonebookList contacts={contacts} filtredNames={getFiltredNames()}></PhonebookList>
-      </Section>}
+          <Filter />
+        <PhonebookList/>
+      </Section>
+}
       
     </div>
   );

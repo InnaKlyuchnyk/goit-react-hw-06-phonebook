@@ -1,6 +1,15 @@
 import { createReducer, createAction } from '@reduxjs/toolkit';
+import { nanoid } from 'nanoid';
 
-export const add = createAction('items/add');
+export const add = createAction('items/add', (name, number) => {
+  return {
+    payload: {
+      id: nanoid(),
+      name,
+      number,
+    },
+  };
+});
 export const remove = createAction('items/remove');
 
 export const contactsReducer = createReducer(
